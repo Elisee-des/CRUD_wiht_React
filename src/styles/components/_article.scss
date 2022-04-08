@@ -1,0 +1,24 @@
+.article {
+    display: grid;
+    border: 10px solid white;
+    padding: 0 5rem;
+    margin: 5rem 0;
+    box-shadow: 0 2px 6px rgba(223, 219, 219, 0.05);
+}
+
+.card-header {
+    text-align: center;
+}
+em {
+    text-align: center;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: calc(-50%);
+}
+
+.container {
+    display: flex;
+    text-align:left;
+}
