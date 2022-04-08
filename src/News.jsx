@@ -1,6 +1,7 @@
 import React from 'react';
 import "./_news.scss"
 
+
 const News = () => {
     return (
 
@@ -14,5 +15,4 @@ const News = () => {
         </div>
     );
 };
-
 export default News;
