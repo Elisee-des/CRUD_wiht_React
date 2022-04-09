@@ -7,9 +7,10 @@ import "./_news.scss"
 
 const News = () => {
 
-    const [newsData, setNewsData] = useState([])
-    const [author, setAuthor] = useState("")
-    const [content, setContent] = useState("")
+    const [newsData, setNewsData] = useState([]);
+    const [author, setAuthor] = useState("");
+    const [content, setContent] = useState("");
+    const [erreur, setErreur] = useState(false)
 
     useEffect(() => {
         getData()
@@ -17,39 +18,53 @@ const News = () => {
 
     const getData = () => {
         axios
-        .get(" http://localhost:3001/articles")
-        .then((res) => setNewsData(res.data))
+            .get(" http://localhost:3001/articles")
+            .then((res) => setNewsData(res.data))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
-        axios.post("http://localhost:3001/articles", {
-            author,
-            content,
-            date: Date.now()
-        }).then(() => {
-            setAuthor("");
-            setContent("");
-            getData()
-        })
+
+        if (content.length < 140) {
+            setErreur(true)
+        } else {
+            axios.post("http://localhost:3001/articles", {
+                author,
+                content,
+                date: Date.now()
+            }).then(() => {
+                setErreur(false)
+                setAuthor("");
+                setContent("");
+                getData()
+            })
+        }
     }
 
     return (
 
         <div className="news-container">
             <h1>News</h1>
-            <form onSubmit={(e) =>  handleSubmit(e)}>
-                <input onChange={(e) => setAuthor(e.target.value)} value={author} type="text" placeholder="Nom" />
-                <textarea onChange={(e) => setContent(e.target.value)} value={content} placeholder="Message"></textarea>
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <input
+                    onChange={(e) => setAuthor(e.target.value)}
+                    value={author}
+                    type="text"
+                    placeholder="Nom" />
+                <textarea
+                    // style={{ border: erreur ? "1px solid red" : "1px solid #61dafb"}}
+                    onChange={(e) => setContent(e.target.value)}
+                    value={content}
+                    placeholder="Message"></textarea>
+                    {erreur ? <p>Veuillez ecrire un minimun de 140 caracteres</p> : getData()}
                 <input type="submit" value="Envoyez" />
             </form>
             {
                 newsData
-                .sort((a,b) => b.data - a.data)
-                .map((article) => (
-                    <Article key={article.id} article={article} />
-                ))
+                    .sort((a, b) => b.data - a.data)
+                    .map((article) => (
+                        <Article key={article.id} article={article} />
+                    ))
             }
         </div>
     );
