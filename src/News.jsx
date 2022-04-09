@@ -56,7 +56,6 @@ const News = () => {
                     onChange={(e) => setContent(e.target.value)}
                     value={content}
                     placeholder="Message"></textarea>
-                    {erreur ? <p>Veuillez ecrire un minimun de 140 caracteres</p> : getData()}
                 <input type="submit" value="Envoyez" />
             </form>
             {
