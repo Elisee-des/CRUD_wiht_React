@@ -52,11 +52,12 @@ const News = () => {
                     type="text"
                     placeholder="Nom" />
                 <textarea
-                    // style={{ border: erreur ? "1px solid red" : "1px solid #61dafb"}}
+                    style={{ border: erreur ? "1px solid red" : "1px solid #61dafb"}}
                     onChange={(e) => setContent(e.target.value)}
                     value={content}
                     placeholder="Message"></textarea>
                 <input type="submit" value="Envoyez" />
+                
             </form>
             {
                 newsData
